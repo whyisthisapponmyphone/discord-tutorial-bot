@@ -5,6 +5,10 @@ module.exports = {
     category: "moderation",
     run: async (client, message, args) => {
         const channels = message.guild.channels.cache.filter(ch => ch.type !== 'category');
+        
+        if (!message.member.hasPermission('ADMINISTRATOR')) {return message.channel.send(`You are unable to lock.`)
+        }
+        
         if (args[0] === 'on') {
             channels.forEach(channel => {
                 channel.updateOverwrite(message.guild.roles.everyone, {
